@@ -1,5 +1,8 @@
 FROM ubuntu:latest
 
+ARG GEARMAN_VERSION=1.1.18
+ENV GEARMAN_VERSION $GEARMAN_VERSION
+
 RUN apt-get update --fix-missing && \
     apt-get -y upgrade && \
     apt-get install -y \
@@ -13,7 +16,7 @@ RUN apt-get update --fix-missing && \
         python-sphinx \
         uuid-dev \
         git && \
-    git clone --depth 1 https://github.com/gearman/gearmand.git /tmp/gearmand && \
+    git clone --depth 1 -b $GEARMAN_VERSION https://github.com/gearman/gearmand.git /tmp/gearmand && \
     cd /tmp/gearmand && \
     ./bootstrap.sh -a && \
     ./configure && \
